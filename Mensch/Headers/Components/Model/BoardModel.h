@@ -1,13 +1,13 @@
-#ifndef SQUAREMODEL_H
-#define SQUAREMODEL_H
+#ifndef BOARDMODEL_H
+#define BOARDMODEL_H
 
 #include "./Model.h"
 
-class SquareModel : public Model
+class BoardModel : public Model
 {
 public:
-    SquareModel();
-    ~SquareModel();
+    BoardModel();
+    ~BoardModel();
 
     // Load method
     void load();

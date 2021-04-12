@@ -4,7 +4,8 @@
 class Command
 {
 public:
-private:
+    Command();
+    virtual ~Command();
 };
 
 #endif

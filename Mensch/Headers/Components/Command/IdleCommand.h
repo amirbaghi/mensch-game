@@ -6,7 +6,8 @@
 class IdleCommand : public Command
 {
 public:
-private:
+    IdleCommand();
+    ~IdleCommand();
 };
 
 #endif

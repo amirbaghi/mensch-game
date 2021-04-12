@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "./Components/AI/AIEngine.h"
 #include "./Components/Render/RenderEngine.h"
 #include "./Components/Physics/PhsyicsEngine.h"
@@ -18,7 +19,19 @@ public:
     Game();
     ~Game();
 
+    // Instance Method
+    static Game &instance();
+
+    // Game initialization
+    void initGame();
+
+    // Game Main Loop
+    void mainLoop();
+
 private:
+    // Private Constructor
+    Game();
+
     // AI Engine
     AIEngine *aiEngine;
 
@@ -45,6 +58,9 @@ private:
 
     // Pieces
     std::vector<Piece *> pieces;
+
+    // Start Time
+    clock_t startTime;
 };
 
 #endif

@@ -6,7 +6,14 @@
 class PieceModel : public Model
 {
 public:
-private:
+    PieceModel();
+    ~PieceModel();
+
+    // Load method
+    void load();
+
+    // Render method
+    void render();
 };
 
 #endif
