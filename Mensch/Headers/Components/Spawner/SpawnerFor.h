@@ -9,7 +9,7 @@ template <class T>
 class SpawnerFor : public Spawner
 {
 public:
-    SpawnerFor(Model* model);
+    SpawnerFor(Model *model);
     ~SpawnerFor();
 
     // Method for spawning actors
