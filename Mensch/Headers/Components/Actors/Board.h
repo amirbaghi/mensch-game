@@ -3,14 +3,14 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "../Model/Model.h"
+#include "../Model/BoardModel.h"
 #include "./Square.h"
 #include "../Color.h"
 
 class Board : public Actor
 {
 public:
-    Board(Model *model);
+    Board(BoardModel *model);
     ~Board();
 
     // Regular Squares Getter

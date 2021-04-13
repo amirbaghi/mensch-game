@@ -3,14 +3,14 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "../Model/Model.h"
+#include "../Model/SquareModel.h"
 #include "./Square.h"
 #include "./Piece.h"
 
 class Square : public Actor
 {
 public:
-    Square(Model *model);
+    Square(SquareModel *model);
     ~Square();
 
     // Add Piece to the current pieces of this square

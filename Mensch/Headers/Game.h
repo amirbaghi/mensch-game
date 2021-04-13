@@ -16,7 +16,6 @@
 class Game
 {
 public:
-    Game();
     ~Game();
 
     // Instance Method

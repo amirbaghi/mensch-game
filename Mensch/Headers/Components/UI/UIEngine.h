@@ -15,7 +15,8 @@ public:
     void renderUI();
 
 private:
-    // Private Constructor
+    // Private Constructors
+    UIEngine();
     UIEngine(Game *game);
 };
 
