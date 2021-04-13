@@ -2,7 +2,9 @@
 #define PHYSICSENGINE_H
 
 #include "../Actors/Piece.h"
+#include "../../Game.h"
 #include "../Subject.h"
+#include "../Command/Command.h"
 
 class PhysicsEngine : public Subject
 {
@@ -10,14 +12,18 @@ public:
     ~PhysicsEngine();
 
     // Instance Method
-    static PhysicsEngine& instance();
+    static PhysicsEngine* instance(Game* game);
 
-    // Update Piece Method
-    void updatePiece(Piece& piece);
+    // Update Method
+    void update(Command& command);
 
 private:
     // Private Constructor
     PhysicsEngine();
+    PhysicsEngine(Game* game);
+
+    // Game Object
+    Game* game;
 };
 
 #endif

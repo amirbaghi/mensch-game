@@ -9,7 +9,7 @@ public:
     ~UIEngine();
 
     // Instance Method
-    static UIEngine &instance(Game *game);
+    static UIEngine *instance(Game *game);
 
     // Method to render UI
     void renderUI();
@@ -18,6 +18,9 @@ private:
     // Private Constructors
     UIEngine();
     UIEngine(Game *game);
+
+    // Game Object
+    Game* game;
 };
 
 #endif

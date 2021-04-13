@@ -11,18 +11,15 @@ public:
     ~AIEngine();
 
     // Instance Method
-    static AIEngine &instance(Game *game);
+    static AIEngine *instance(Game *game);
 
     // Generate Move
-    Command *generateMove();
+    Command *generateMove(Color player);
 
 private:
     // Private Constructors
     AIEngine();
     AIEngine(Game *game);
-
-    // Current Turn
-    Color currentTurn;
 
     // Game Object
     Game *game;

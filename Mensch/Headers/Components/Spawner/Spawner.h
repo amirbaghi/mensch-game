@@ -7,13 +7,13 @@
 class Spawner
 {
 public:
-    Spawner();
-    virtual ~Spawner();
+    Spawner(Model *model) { this->model = model; };
+    virtual ~Spawner() { delete model; };
 
     // Abstract method for spawning
     virtual Actor *spawn() = 0;
 
-private:
+protected:
     // The Model Associated with the class for this spawner
     Model *model;
 };

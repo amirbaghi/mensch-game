@@ -2,21 +2,20 @@
 #define PIECE_H
 
 #include "./Actor.h"
-#include "../Model/PieceModel.h"
 #include "./Square.h"
 #include "../Color.h"
 
 class Piece : public Actor
 {
 public:
-    Piece(PieceModel *model);
+    Piece(Model *model);
     ~Piece();
 
     // Set Current Square
     void setCurrentSquare(Square *square);
 
     // Get Current Square
-    void getCurrentSquare();
+    Square* getCurrentSquare();
 
     // Set Piece Color
     void setPieceColor(Color color);
@@ -25,10 +24,10 @@ public:
     Color getPieceColor();
 
     // Render method
-    void render();
+    void render() override;
 
     // On Notify Method
-    void onNotify(Event event, const Actor &actor);
+    void onNotify(Event& event) override;
 
 private:
     // Current Square
@@ -36,6 +35,9 @@ private:
 
     // Piece Color
     Color color;
+    
+    // Is piece in place
+    bool isInPlace;
 };
 
 #endif

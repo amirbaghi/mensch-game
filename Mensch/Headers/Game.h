@@ -9,7 +9,8 @@
 #include "./Components/Physics/PhsyicsEngine.h"
 #include "./Components/Command/CommandStream.h"
 #include "./Components/UI/UIEngine.h"
-#include "./Components/Spawner/Spawner.h"
+#include "./Components/Spawner/BoardSpawner.h"
+#include "./Components/Spawner/PieceSpawner.h"
 #include "./Components/Actors/Board.h"
 #include "./Components/Actors/Piece.h"
 
@@ -18,8 +19,23 @@ class Game
 public:
     ~Game();
 
+    // Board Getter
+    Board *getBoard();
+
+    // Piece Getter
+    std::vector<Piece *> getPieces();
+
+    // Current Turn Getter
+    Color getCurrentTurn();
+
+    // Current Turn Setter
+    void setCurrentTurn(Color currentTurn);
+
+    // Go Next Turn
+    void nextTurn();
+
     // Instance Method
-    static Game &instance();
+    static Game *instance();
 
     // Game initialization
     void initGame();
@@ -46,11 +62,11 @@ private:
     // Physics Engine
     PhysicsEngine *physicsEngine;
 
-    // Square Spawner
-    Spawner *squareSpawner;
+    // Board Spawner
+    BoardSpawner *boardSpawner;
 
     // Piece Spawner
-    Spawner *pieceSpawner;
+    PieceSpawner *pieceSpawner;
 
     // Board
     Board *board;
@@ -60,6 +76,9 @@ private:
 
     // Start Time
     clock_t startTime;
+
+    // Current Turn
+    Color currentTurn;
 };
 
 #endif

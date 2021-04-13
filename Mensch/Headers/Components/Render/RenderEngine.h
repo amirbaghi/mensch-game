@@ -9,7 +9,7 @@ public:
     ~RenderEngine();
 
     // Instance Method
-    static RenderEngine &instance(Game *game);
+    static RenderEngine *instance(Game *game);
 
     // Method to for rendering
     void render();

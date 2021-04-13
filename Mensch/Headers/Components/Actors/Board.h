@@ -3,14 +3,13 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "../Model/BoardModel.h"
 #include "./Square.h"
 #include "../Color.h"
 
 class Board : public Actor
 {
 public:
-    Board(BoardModel *model);
+    Board(Model *model);
     ~Board();
 
     // Regular Squares Getter
@@ -26,10 +25,10 @@ public:
     void setHomeRow(std::vector<Square *> squares, Color color);
 
     // Render method
-    void render();
+    void render() override;
 
     // On Notify Method
-    void onNotify(Event event, const Actor &actor);
+    void onNotify(Event& event) override;
 
 private:
     // Regular Squares of the Board

@@ -8,6 +8,9 @@ class IdleCommand : public Command
 public:
     IdleCommand();
     ~IdleCommand();
+
+    // Execute command
+    Event* execute();
 };
 
 #endif

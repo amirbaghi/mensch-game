@@ -15,11 +15,18 @@ public:
     Piece *getPiece();
     // Destination Getter
     Square *getSquare();
+    // Dice Number Getter
+    int getDiceNum();
 
     // Piece Setter
     void setPiece(Piece *piece);
     // Destination Setter
     void setDestination(Square *square);
+    // Dice Number Setter
+    void setDiceNum(int diceNum);
+
+    // Execute command
+    Event *execute();
 
 private:
     // Destination Square of the move
@@ -27,6 +34,9 @@ private:
 
     // The piece associated with the move
     Piece *piece;
+
+    // Dice Number
+    int diceNum;
 };
 
 #endif

@@ -7,12 +7,8 @@
 class Actor : public Observer
 {
 public:
-    Actor(Model *model);
-    virtual ~Actor();
-
-    // TODO: Maybe Not needed
-    // // Abstract On Notify Method
-    // virtual void onNotify(Event event, const Actor &actor) = 0;
+    Actor(Model *model) { this->model = model; };
+    virtual ~Actor() {};
 
     // Abstract Render Method
     virtual void render() = 0;

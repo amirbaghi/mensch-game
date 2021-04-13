@@ -7,12 +7,11 @@
 
 class Observer
 {
-    friend class Subject;
-
 public:
-    virtual ~Observer();
+    virtual ~Observer(){};
+
     // On Notify Method, which should be implemented for each observer
-    virtual void onNotify(Event event, const Actor &actor) = 0;
+    virtual void onNotify(Event& event) = 0;
 };
 
 #endif

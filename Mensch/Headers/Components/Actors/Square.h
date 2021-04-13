@@ -3,14 +3,13 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "../Model/SquareModel.h"
 #include "./Square.h"
 #include "./Piece.h"
 
 class Square : public Actor
 {
 public:
-    Square(SquareModel *model);
+    Square(Model *model);
     ~Square();
 
     // Add Piece to the current pieces of this square
@@ -28,17 +27,29 @@ public:
     // IsHomeSquare Getter
     bool getIsHomeSquare();
 
+    // IsHomeRowSquare Setter
+    void setIsHomeRowSquare(bool isHomeRowSquare);
+
+    // IsHomeRowSquare Getter
+    bool getIsHomeRowSquare();
+
     // Square Color Setter
     void setColor(Color color);
 
     // Square Color Getter
     Color getColor();
 
+    // Square Number Getter
+    int getSquareNumber();
+
+    // Square Number Setter
+    void setSquareNumber(int squareNumber);
+
     // Render method
-    void render();
+    void render() override;
 
     // On Notify Method
-    void onNotify(Event event, const Actor &actor);
+    void onNotify(Event &event) override;
 
 private:
     // Pieces currently on this square (Max 2)
@@ -47,8 +58,14 @@ private:
     // Is this Square a home square
     bool isHomeSquare;
 
+    // Is this square a home row square
+    bool isHomeRowSquare;
+
     // Square Color
     Color color;
+
+    // Square number
+    int squareNumber;
 };
 
 #endif
