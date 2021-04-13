@@ -1,4 +1,5 @@
 #include "./Headers/Components/Render/RenderEngine.h"
+#include "./Headers/Game.h"
 
 RenderEngine::RenderEngine()
 {

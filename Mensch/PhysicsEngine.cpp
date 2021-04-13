@@ -1,5 +1,7 @@
 #include "./Headers/Components/Physics/PhsyicsEngine.h"
 #include "./Headers/Components/Events/Event.h"
+#include "./Headers/Game.h"
+
 
 PhysicsEngine::PhysicsEngine()
 {

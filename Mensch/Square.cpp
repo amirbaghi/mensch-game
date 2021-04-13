@@ -1,4 +1,7 @@
 #include "./Headers/Components/Actors/Square.h"
+#include "./Headers/Components/Events/Event.h"
+#include "./Headers/Components/Actors/Piece.h"
+
 #include <algorithm>
 
 Square::Square(Model *model) : Actor(model)

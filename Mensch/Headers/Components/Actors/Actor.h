@@ -7,8 +7,8 @@
 class Actor : public Observer
 {
 public:
-    Actor(Model *model) { this->model = model; };
-    virtual ~Actor() {};
+    Actor(Model *model);
+    virtual ~Actor();
 
     // Abstract Render Method
     virtual void render() = 0;

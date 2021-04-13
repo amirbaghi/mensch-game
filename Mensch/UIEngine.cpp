@@ -1,4 +1,6 @@
 #include "./Headers/Components/UI/UIEngine.h"
+#include "./Headers/Game.h"
+
 
 UIEngine::UIEngine()
 {

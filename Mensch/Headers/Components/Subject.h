@@ -17,7 +17,7 @@ public:
 
 protected:
     // Method to notify observers
-    void notify(const Event& event);
+    void notify(Event& event);
 
 private:
     // Vector of Observers

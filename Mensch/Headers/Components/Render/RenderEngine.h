@@ -1,7 +1,7 @@
 #ifndef RENDERENGINE_H
 #define RENDERENGINE_H
 
-#include "../../Game.h"
+class Game;
 
 class RenderEngine
 {

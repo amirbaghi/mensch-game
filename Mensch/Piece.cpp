@@ -1,4 +1,6 @@
 #include "./Headers/Components/Actors/Piece.h"
+#include "./Headers/Components/Events/Event.h"
+
 
 Piece::Piece(Model *model) : Actor(model)
 {

@@ -8,6 +8,6 @@ enum Color
     GREEN,
     YELLOW,
     NOCOLOR
-}
+};
 
 #endif

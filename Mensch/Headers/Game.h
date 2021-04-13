@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include "./Components/Actors/Piece.h"
+#include "./Components/Actors/Board.h"
 #include "./Components/AI/AIEngine.h"
 #include "./Components/Render/RenderEngine.h"
 #include "./Components/Physics/PhsyicsEngine.h"
@@ -11,8 +13,6 @@
 #include "./Components/UI/UIEngine.h"
 #include "./Components/Spawner/BoardSpawner.h"
 #include "./Components/Spawner/PieceSpawner.h"
-#include "./Components/Actors/Board.h"
-#include "./Components/Actors/Piece.h"
 
 class Game
 {

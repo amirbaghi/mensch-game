@@ -1,6 +1,7 @@
 #include "./Headers/Components/AI/AIEngine.h"
 #include "./Headers/Components/Command/MoveCommand.h"
 #include "./Headers/Components/Command/IdleCommand.h"
+#include "./Headers/Game.h"
 
 AIEngine::AIEngine()
 {
@@ -9,6 +10,10 @@ AIEngine::AIEngine()
 AIEngine::AIEngine(Game *game)
 {
     this->game = game;
+}
+
+AIEngine::~AIEngine()
+{
 }
 
 AIEngine *AIEngine::instance(Game *game)

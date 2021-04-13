@@ -7,8 +7,8 @@
 class Spawner
 {
 public:
-    Spawner(Model *model) { this->model = model; };
-    virtual ~Spawner() { delete model; };
+    Spawner(Model *model);
+    virtual ~Spawner();
 
     // Abstract method for spawning
     virtual Actor *spawn() = 0;

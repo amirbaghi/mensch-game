@@ -1,14 +1,14 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-#include "./Subject.h"
-#include "./Events/Event.h"
-#include "./Actors/Actor.h"
+// #include "./Events/Event.h"
+
+class Event;
 
 class Observer
 {
 public:
-    virtual ~Observer(){};
+    virtual ~Observer();
 
     // On Notify Method, which should be implemented for each observer
     virtual void onNotify(Event& event) = 0;

@@ -2,9 +2,10 @@
 #define PHYSICSENGINE_H
 
 #include "../Actors/Piece.h"
-#include "../../Game.h"
 #include "../Subject.h"
 #include "../Command/Command.h"
+
+class Game;
 
 class PhysicsEngine : public Subject
 {

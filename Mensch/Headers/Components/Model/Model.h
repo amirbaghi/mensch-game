@@ -4,8 +4,8 @@
 class Model
 {
 public:
-    Model() {};
-    virtual ~Model() {};
+    Model();
+    virtual ~Model();
 
     // Abstract load method
     virtual void load() = 0;

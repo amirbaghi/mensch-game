@@ -18,7 +18,7 @@ void Subject::removeObserver(Observer *observer)
     }
 }
 
-void Subject::notify(const Event& event)
+void Subject::notify(Event& event)
 {
     for (auto it = observers.begin(); it != observers.end(); it++)
     {

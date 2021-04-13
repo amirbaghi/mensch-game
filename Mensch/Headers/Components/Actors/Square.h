@@ -3,8 +3,9 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "./Square.h"
-#include "./Piece.h"
+#include "../Color.h"
+
+class Piece;
 
 class Square : public Actor
 {

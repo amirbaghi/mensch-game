@@ -1,7 +1,7 @@
 #ifndef UIENGINE_H
 #define UIENGINE_H
 
-#include "../../Game.h"
+class Game;
 
 class UIEngine
 {

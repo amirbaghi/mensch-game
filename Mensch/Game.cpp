@@ -138,7 +138,7 @@ void Game::mainLoop()
 
             if (isHomeRowFull)
             {
-                std::cout << 'RED WINS' << std::endl;
+                std::cout << "RED WINS" << std::endl;
                 return;
             }
         }

@@ -2,8 +2,10 @@
 #define AIENGINE_H
 
 #include "../Command/Command.h"
-#include "../../Game.h"
+// #include "../../Game.h"
 #include "../Color.h"
+
+class Game;
 
 class AIEngine
 {
