@@ -123,6 +123,7 @@ void Game::initGame()
 void Game::mainLoop()
 {
 
+    long int count = 0;
     do
     {
         // Check if the game has ended
@@ -139,8 +140,10 @@ void Game::mainLoop()
                 }
             }
 
+            // If a home row is full
             if (isHomeRowFull)
             {
+                // Print the winner
                 switch (color)
                 {
                 case RED:
@@ -159,6 +162,13 @@ void Game::mainLoop()
                     break;
                 }
                 std::cout << " WINS" << std::endl;
+
+                // Print the number of turns
+                std::cout << "Number of Turns: ";
+                std::cout << count << std::endl;
+
+                // Print the elapsed time
+                std::cout << "Elapsed Time: " << float(clock() - startTime) / CLOCKS_PER_SEC << std::endl;
                 return;
             }
         }
@@ -174,6 +184,11 @@ void Game::mainLoop()
 
         // Update the game
         physicsEngine->update(*recentCommand);
+
+        // Delete the recent command
+        delete recentCommand;
+
+        count++;
 
     } while (true);
 }

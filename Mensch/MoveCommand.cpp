@@ -63,7 +63,7 @@ Event *MoveCommand::execute()
     this->piece->setCurrentSquare(this->destination);
 
 
-    // Printing the moves
+    // Logging the move
     switch (this->piece->getPieceColor())
     {
     case RED:
@@ -99,6 +99,7 @@ Event *MoveCommand::execute()
     std::cout << "SQUARE " << destination->getSquareNumber() << std::endl;
 
 
+    // Generating the appropriate event
     Event *e = new Event();
 
     e->setActor(this->piece);

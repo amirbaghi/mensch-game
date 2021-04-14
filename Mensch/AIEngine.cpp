@@ -189,6 +189,7 @@ Command *AIEngine::generateMove(Color player)
 
     // If we couldn't move none of the pieces, return an idle move
     IdleCommand *command = new IdleCommand();
+    command->setDiceNum(diceNum);
 
     return command;
 }
