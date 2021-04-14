@@ -1,7 +1,6 @@
 #include "./Headers/Components/Actors/Piece.h"
 #include "./Headers/Components/Events/Event.h"
 
-
 Piece::Piece(Model *model) : Actor(model)
 {
 }
@@ -33,6 +32,16 @@ Color Piece::getPieceColor()
 void Piece::render()
 {
     model->render();
+}
+
+void Piece::setHasPassedHomeSquare(bool hasPassedHomeSquare)
+{
+    this->hasPassedHomeSquare = hasPassedHomeSquare;
+}
+
+bool Piece::getHasPassedHomeSquare()
+{
+    return this->hasPassedHomeSquare;
 }
 
 void Piece::onNotify(Event &event)

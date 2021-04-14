@@ -1,4 +1,5 @@
 #include "./Headers/Components/Command/MoveCommand.h"
+#include <iostream>
 
 MoveCommand::MoveCommand()
 {
@@ -41,14 +42,61 @@ void MoveCommand::setDiceNum(int diceNum)
 Event *MoveCommand::execute()
 {
 
-    // First remove the piece from the previous square
-    this->piece->getCurrentSquare()->removePiece(this->piece);
+    Square *source = this->piece->getCurrentSquare();
+
+    // First remove the piece from the previous square (If it's already in the game)
+    if (this->piece->getCurrentSquare() != nullptr)
+    {
+        this->piece->getCurrentSquare()->removePiece(this->piece);
+
+        // Check if the piece has already passed its home square at least once
+        if (this->piece->getCurrentSquare()->getIsHomeSquare() && this->piece->getCurrentSquare()->getColor() == this->piece->getPieceColor())
+        {
+            this->piece->setHasPassedHomeSquare(true);
+        }
+    }
 
     // Add the piece to the new square
     this->destination->addPiece(this->piece);
 
     // Set the current square for the piece accordingly
     this->piece->setCurrentSquare(this->destination);
+
+
+    // Printing the moves
+    switch (this->piece->getPieceColor())
+    {
+    case RED:
+        std::cout << "RED ";
+        break;
+    case BLUE:
+        std::cout << "BLUE ";
+        break;
+    case GREEN:
+        std::cout << "GREEN ";
+        break;
+    case YELLOW:
+        std::cout << "YELLOW ";
+        break;
+    default:
+        break;
+    }
+
+    std::cout << "MOVED A PIECE FROM ";
+    if (source == nullptr)
+    {
+        std::cout << "HOME";
+    }
+    else
+    {
+        std::cout << "SQUARE " << source->getSquareNumber();
+    }
+    std::cout << " TO ";
+    if (destination->getIsHomeRowSquare())
+    {
+        std::cout << "HOME ROW ";
+    }
+    std::cout << "SQUARE " << destination->getSquareNumber() << std::endl;
 
 
     Event *e = new Event();

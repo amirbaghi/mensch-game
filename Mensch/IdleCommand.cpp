@@ -1,4 +1,5 @@
 #include "./Headers/Components/Command/IdleCommand.h"
+#include <iostream>
 
 IdleCommand::IdleCommand()
 {
@@ -10,6 +11,8 @@ IdleCommand::~IdleCommand()
 
 Event *IdleCommand::execute()
 {
+
+
     // Nothing should be done
     Event *e = new Event();
 

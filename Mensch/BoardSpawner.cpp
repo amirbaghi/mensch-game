@@ -29,7 +29,7 @@ Board *BoardSpawner::spawn()
         homeSquare->setColor(static_cast<Color>(currentColor));
         homeSquare->setIsHomeRowSquare(false);
         homeSquare->setSquareNumber(currentSquareNumber);
-        currentSquareNumber++;
+        ++currentSquareNumber;
 
         regSquares.push_back(homeSquare);
 
@@ -40,8 +40,8 @@ Board *BoardSpawner::spawn()
             regSquare->setIsHomeSquare(false);
             regSquare->setColor(NOCOLOR);
             regSquare->setIsHomeRowSquare(false);
-            homeSquare->setSquareNumber(currentSquareNumber);
-            currentSquareNumber++;
+            regSquare->setSquareNumber(currentSquareNumber);
+            ++currentSquareNumber;
 
             regSquares.push_back(regSquare);
         }

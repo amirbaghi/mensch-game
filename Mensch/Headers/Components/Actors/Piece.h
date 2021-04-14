@@ -23,6 +23,12 @@ public:
     // Get Piece Color
     Color getPieceColor();
 
+    // Set HasPassedHomeSquare
+    void setHasPassedHomeSquare(bool hasPassedHomeSquare);
+
+    // Get HasPassedHomeSquare
+    bool getHasPassedHomeSquare();
+
     // Render method
     void render() override;
 
@@ -35,9 +41,9 @@ private:
 
     // Piece Color
     Color color;
-    
-    // Is piece in place
-    bool isInPlace;
+
+    // Has Passed Home Square Once
+    bool hasPassedHomeSquare;
 };
 
 #endif

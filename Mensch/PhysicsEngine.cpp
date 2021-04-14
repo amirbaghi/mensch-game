@@ -31,7 +31,7 @@ void PhysicsEngine::update(Command &command)
     notify((*event));
 
     // Go to next turn (Only if the move wasn't a 6)
-    if (event->getEventType() == EVENT_PIECE_MOVED)
+    if (event->getEventType() != EVENT_PIECE_MOVED_SIX)
     {
         this->game->nextTurn();
     }

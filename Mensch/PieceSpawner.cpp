@@ -26,6 +26,7 @@ Piece *PieceSpawner::spawn()
     // Setting the color and current square for the square
     p->setCurrentSquare(nullptr);
     p->setPieceColor(this->spawnColor);
+    p->setHasPassedHomeSquare(false);
 
     return p;
 }

@@ -75,6 +75,8 @@ void Game::initGame()
     // Setting the start time for the game
     startTime = clock();
 
+    std::srand((unsigned int)std::time(NULL));
+
     // Initializing the main modules of the game
     aiEngine = AIEngine::instance(this);
     renderEngine = RenderEngine::instance(this);
@@ -133,12 +135,30 @@ void Game::mainLoop()
                 if (s->getCurrentPieces().empty())
                 {
                     isHomeRowFull = false;
+                    break;
                 }
             }
 
             if (isHomeRowFull)
             {
-                std::cout << "RED WINS" << std::endl;
+                switch (color)
+                {
+                case RED:
+                    std::cout << "RED";
+                    break;
+                case BLUE:
+                    std::cout << "BLUE";
+                    break;
+                case GREEN:
+                    std::cout << "GREEN";
+                    break;
+                case YELLOW:
+                    std::cout << "YELLOW";
+                    break;
+                default:
+                    break;
+                }
+                std::cout << " WINS" << std::endl;
                 return;
             }
         }
