@@ -82,8 +82,6 @@ void Square::onNotify(Event &event)
         {
         case EVENT_PIECE_MOVED:
             break;
-        case EVENT_PIECE_MOVED_SIX:
-            break;
         case EVENT_NO_MOVE:
             break;
         default:

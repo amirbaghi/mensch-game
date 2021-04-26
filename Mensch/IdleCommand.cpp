@@ -26,14 +26,8 @@ Event *IdleCommand::execute(bool shouldLog)
 
     e->setActor(nullptr);
     e->setPlayer(this->player);
-    if (this->diceNum == 6)
-    {
-        e->setEventType(EVENT_NO_MOVE_SIX);
-    }
-    else
-    {
-        e->setEventType(EVENT_NO_MOVE);
-    }
+    e->setDiceNum(this->diceNum);
+    e->setEventType(EVENT_NO_MOVE);
 
     return e;
 }

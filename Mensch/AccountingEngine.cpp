@@ -18,6 +18,9 @@ AccountingEngine *AccountingEngine::instance()
 
 void AccountingEngine::initAccounting()
 {
+    // Delete the previous stats file (If exists)
+    std::remove("stats.txt");
+
     // Initializing the counters for all players as 0
 
     redWaitDuration = 0;
@@ -48,7 +51,14 @@ void AccountingEngine::initAccounting()
 
 void AccountingEngine::writeOut(time_t time)
 {
-    std::cout << (float)time / CLOCKS_PER_SEC << " " << redWaitDuration << " " << blueWaitDuration << " " << greenWaitDuration << " " << yellowWaitDuration << std::endl;
+
+    std::ofstream f;
+    f.open("stats.txt", std::ios::out | std::ios::app);
+    f << (float)time / CLOCKS_PER_SEC << " " << redWaitDuration << "/" << redGainedScore << "/" << redLostScore << "/" << redNumberOfStarts << " "
+      << blueWaitDuration << "/" << blueGainedScore << "/" << blueLostScore << "/" << blueNumberOfStarts << " "
+      << greenWaitDuration << "/" << greenGainedScore << "/" << greenLostScore << "/" << greenNumberOfStarts << " "
+      << yellowWaitDuration << "/" << yellowGainedScore << "/" << yellowLostScore << "/" << yellowNumberOfStarts << std::endl;
+    f.close();
 }
 
 void AccountingEngine::onNotify(Event &event)
@@ -59,27 +69,75 @@ void AccountingEngine::onNotify(Event &event)
     switch (playerColor)
     {
     case RED:
-        if (eventType == EVENT_NO_MOVE || eventType == EVENT_NO_MOVE_SIX)
+        if (eventType == EVENT_NO_MOVE)
         {
             redWaitDuration += 1;
         }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        {
+            redGainedScore += 1;
+        }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
+        {
+            redNumberOfStarts += 1;
+        }
+        else if (eventType == EVENT_PIECE_HIT)
+        {
+            redLostScore += 1;
+        }
         break;
     case BLUE:
-        if (eventType == EVENT_NO_MOVE || eventType == EVENT_NO_MOVE_SIX)
+        if (eventType == EVENT_NO_MOVE)
         {
             blueWaitDuration += 1;
         }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        {
+            blueGainedScore += 1;
+        }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
+        {
+            blueNumberOfStarts += 1;
+        }
+        else if (eventType == EVENT_PIECE_HIT)
+        {
+            blueLostScore += 1;
+        }
         break;
     case GREEN:
-        if (eventType == EVENT_NO_MOVE || eventType == EVENT_NO_MOVE_SIX)
+        if (eventType == EVENT_NO_MOVE)
         {
             greenWaitDuration += 1;
         }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        {
+            greenGainedScore += 1;
+        }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
+        {
+            greenNumberOfStarts += 1;
+        }
+        else if (eventType == EVENT_PIECE_HIT)
+        {
+            greenLostScore += 1;
+        }
         break;
     case YELLOW:
-        if (eventType == EVENT_NO_MOVE || eventType == EVENT_NO_MOVE_SIX)
+        if (eventType == EVENT_NO_MOVE)
         {
             yellowWaitDuration += 1;
+        }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        {
+            yellowGainedScore += 1;
+        }
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
+        {
+            yellowNumberOfStarts += 1;
+        }
+        else if (eventType == EVENT_PIECE_HIT)
+        {
+            yellowLostScore += 1;
         }
         break;
     default:

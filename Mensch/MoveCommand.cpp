@@ -105,10 +105,15 @@ Event *MoveCommand::execute(bool shouldLog)
 
     e->setActor(this->piece);
     e->setPlayer(this->player);
+    e->setDiceNum(this->diceNum);
 
-    if (diceNum == 6)
+    if (this->destination->getIsHomeRowSquare())
     {
-        e->setEventType(EVENT_PIECE_MOVED_SIX);
+        e->setEventType(EVENT_PIECE_MOVED_TO_HOME_ROW);
+    }
+    else if (this->destination->getIsHomeSquare() && this->destination->getColor() == this->piece->getColor())
+    {
+        e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE);
     }
     else
     {

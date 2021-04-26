@@ -2,7 +2,6 @@
 #include "./Headers/Components/Events/Event.h"
 #include "./Headers/Game.h"
 
-
 PhysicsEngine::PhysicsEngine()
 {
 }
@@ -31,8 +30,8 @@ void PhysicsEngine::update(Command &command)
     // Notify all the observers of the event that happened
     notify((*event));
 
-    // Go to next turn (Only if the move wasn't a 6)
-    if (event->getEventType() != EVENT_PIECE_MOVED_SIX && event->getEventType() != EVENT_NO_MOVE_SIX)
+    // Go to next turn (Only if the dice number wasn't a 6)
+    if (event->getDiceNum() != 6)
     {
         this->game->nextTurn();
     }

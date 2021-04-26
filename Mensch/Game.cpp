@@ -129,6 +129,9 @@ void Game::initGame()
     physicsEngine = PhysicsEngine::instance(this);
     accountingEngine = AccountingEngine::instance();
 
+    // Initialize Accounting Engine
+    accountingEngine->initAccounting();
+
     // Subscribing the accounting engine to the physics engine
     physicsEngine->addObserver(accountingEngine);
 
@@ -279,6 +282,9 @@ void Game::run()
     // Profiling Execution (Game is run 1000 times)
     if (this->executionMode == PROFILING)
     {
+        // Write out the record for the first run
+        this->accountingEngine->writeOut(clock());
+
         for (int i = 0; i < 999; i++)
         {
             // Reset the game state

@@ -18,14 +18,24 @@ Color Event::getPlayer()
     return this->player;
 }
 
+EventType Event::getEventType()
+{
+    return this->event;
+}
+
+int Event::getDiceNum()
+{
+    return this->diceNum;
+}
+
 void Event::setPlayer(Color player)
 {
     this->player = player;
 }
 
-EventType Event::getEventType()
+void Event::setDiceNum(int diceNum)
 {
-    return this->event;
+    this->diceNum = diceNum;
 }
 
 void Event::setActor(Actor *actor)
