@@ -12,9 +12,13 @@ public:
 
     // Actor getter
     Actor* getActor();
+    // Player getter
+    Color getPlayer();
     // EventType Getter
     EventType getEventType();
 
+    // Player Setter
+    void setPlayer(Color player);
     // Actor Setter
     void setActor(Actor* actor);
     // EventType Setter
@@ -25,6 +29,8 @@ private:
     Actor *actor;
     // The type of event
     EventType event;
+    // Player associated with the event
+    Color player;
 };
 
 #endif

@@ -24,7 +24,7 @@ void Piece::setPieceColor(Color color)
     this->color = color;
 }
 
-Color Piece::getPieceColor()
+Color Piece::getColor()
 {
     return this->color;
 }

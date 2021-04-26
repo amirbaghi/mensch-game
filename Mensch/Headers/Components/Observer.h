@@ -1,7 +1,6 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-// #include "./Events/Event.h"
 
 class Event;
 

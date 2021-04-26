@@ -43,6 +43,11 @@ void Board::render()
     model->render();
 }
 
+Color Board::getColor()
+{
+    return NOCOLOR;
+}
+
 void Board::onNotify(Event &event)
 {
     // If the event has not happened for this actor

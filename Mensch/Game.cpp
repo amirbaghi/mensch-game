@@ -78,6 +78,9 @@ void Game::nextTurn()
 
 void Game::resetState()
 {
+    // Setting the start time for the game
+    startTime = clock();
+
     // Clear the previous Game state
     delete board;
 
@@ -124,6 +127,10 @@ void Game::initGame()
     commandStream = CommandStream::instance();
     uiEngine = UIEngine::instance(this);
     physicsEngine = PhysicsEngine::instance(this);
+    accountingEngine = AccountingEngine::instance();
+
+    // Subscribing the accounting engine to the physics engine
+    physicsEngine->addObserver(accountingEngine);
 
     // Creating and Loading models for squares and the board
     // And creating a spawner for the board, using the models
@@ -279,6 +286,9 @@ void Game::run()
 
             // Run another round of the game
             this->mainLoop();
+
+            // Write out the record for this round
+            this->accountingEngine->writeOut(clock());
         }
     }
 }

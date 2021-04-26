@@ -50,7 +50,7 @@ Event *MoveCommand::execute(bool shouldLog)
         this->piece->getCurrentSquare()->removePiece(this->piece);
 
         // Check if the piece has already passed its home square at least once
-        if (this->piece->getCurrentSquare()->getIsHomeSquare() && this->piece->getCurrentSquare()->getColor() == this->piece->getPieceColor())
+        if (this->piece->getCurrentSquare()->getIsHomeSquare() && this->piece->getCurrentSquare()->getColor() == this->piece->getColor())
         {
             this->piece->setHasPassedHomeSquare(true);
         }
@@ -65,7 +65,7 @@ Event *MoveCommand::execute(bool shouldLog)
     if (shouldLog)
     {
         // Logging the move
-        switch (this->piece->getPieceColor())
+        switch (this->piece->getColor())
         {
         case RED:
             std::cout << "RED ";
@@ -104,6 +104,7 @@ Event *MoveCommand::execute(bool shouldLog)
     Event *e = new Event();
 
     e->setActor(this->piece);
+    e->setPlayer(this->player);
 
     if (diceNum == 6)
     {

@@ -3,7 +3,6 @@
 
 #include "./Actor.h"
 #include "./Square.h"
-#include "../Color.h"
 
 class Piece : public Actor
 {
@@ -21,7 +20,7 @@ public:
     void setPieceColor(Color color);
 
     // Get Piece Color
-    Color getPieceColor();
+    Color getColor();
 
     // Set HasPassedHomeSquare
     void setHasPassedHomeSquare(bool hasPassedHomeSquare);

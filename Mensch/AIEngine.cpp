@@ -36,7 +36,7 @@ Command *AIEngine::generateMove(Color player)
 
     for (Piece *p : game->getPieces())
     {
-        if (p->getPieceColor() == player)
+        if (p->getColor() == player)
         {
             pieces.push_back(p);
         }
@@ -73,7 +73,7 @@ Command *AIEngine::generateMove(Color player)
                     bool squareIsOccupied = false;
                     for (Piece *piece : destination->getCurrentPieces())
                     {
-                        if (piece->getPieceColor() != player)
+                        if (piece->getColor() != player)
                         {
                             squareIsOccupied = true;
                         }
@@ -87,18 +87,11 @@ Command *AIEngine::generateMove(Color player)
                         command->setPiece(p);
                         command->setDiceNum(diceNum);
                         command->setDestination(destination);
+                        command->setPlayer(player);
 
                         return command;
                     }
                 }
-
-                // MoveCommand *command = new MoveCommand();
-
-                // command->setPiece(p);
-                // command->setDiceNum(diceNum);
-                // command->setDestination(destination);
-
-                // return command;
             }
         }
 
@@ -146,6 +139,7 @@ Command *AIEngine::generateMove(Color player)
                         command->setPiece(p);
                         command->setDiceNum(diceNum);
                         command->setDestination(homeRowSquare);
+                        command->setPlayer(player);
 
                         return command;
                     }
@@ -164,7 +158,7 @@ Command *AIEngine::generateMove(Color player)
                 bool squareIsOccupied = false;
                 for (Piece *piece : destination->getCurrentPieces())
                 {
-                    if (piece->getPieceColor() != player)
+                    if (piece->getColor() != player)
                     {
                         squareIsOccupied = true;
                     }
@@ -178,6 +172,7 @@ Command *AIEngine::generateMove(Color player)
                     command->setPiece(p);
                     command->setDiceNum(diceNum);
                     command->setDestination(destination);
+                    command->setPlayer(player);
 
                     return command;
                 }
@@ -190,6 +185,7 @@ Command *AIEngine::generateMove(Color player)
     // If we couldn't move none of the pieces, return an idle move
     IdleCommand *command = new IdleCommand();
     command->setDiceNum(diceNum);
+    command->setPlayer(player);
 
     return command;
 }

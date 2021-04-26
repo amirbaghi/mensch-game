@@ -4,7 +4,6 @@
 #include <vector>
 #include "./Actor.h"
 #include "./Square.h"
-#include "../Color.h"
 
 class Board : public Actor
 {
@@ -29,6 +28,9 @@ public:
 
     // On Notify Method
     void onNotify(Event& event) override;
+
+    // Color Getter (Returns No color for the board)
+    Color getColor();
 
 private:
     // Regular Squares of the Board

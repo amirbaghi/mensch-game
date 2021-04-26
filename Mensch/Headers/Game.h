@@ -14,6 +14,7 @@
 #include "./Components/Spawner/BoardSpawner.h"
 #include "./Components/Spawner/PieceSpawner.h"
 #include "./Components/ExecutionModes/ExecMode.h"
+#include "./Components/Accounting/AccountingEngine.h"
 
 class Game
 {
@@ -71,6 +72,9 @@ private:
 
     // Physics Engine
     PhysicsEngine *physicsEngine;
+
+    // Accounting Engine
+    AccountingEngine* accountingEngine;
 
     // Board Spawner
     BoardSpawner *boardSpawner;

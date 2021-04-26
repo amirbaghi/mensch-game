@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "./Actor.h"
-#include "../Color.h"
 
 class Piece;
 

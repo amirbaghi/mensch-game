@@ -13,6 +13,16 @@ Actor *Event::getActor()
     return this->actor;
 }
 
+Color Event::getPlayer()
+{
+    return this->player;
+}
+
+void Event::setPlayer(Color player)
+{
+    this->player = player;
+}
+
 EventType Event::getEventType()
 {
     return this->event;
