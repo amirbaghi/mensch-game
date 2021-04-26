@@ -13,6 +13,7 @@
 #include "./Components/UI/UIEngine.h"
 #include "./Components/Spawner/BoardSpawner.h"
 #include "./Components/Spawner/PieceSpawner.h"
+#include "./Components/ExecutionModes/ExecMode.h"
 
 class Game
 {
@@ -21,6 +22,9 @@ public:
 
     // Board Getter
     Board *getBoard();
+
+    // Execution Mode Getter
+    ExecMode getExecutionMode();
 
     // Piece Getter
     std::vector<Piece *> getPieces();
@@ -42,6 +46,12 @@ public:
 
     // Game Main Loop
     void mainLoop();
+
+    // Reset Game State
+    void resetState();
+
+    // Run the Game
+    void run();
 
 private:
     // Private Constructor
@@ -79,6 +89,9 @@ private:
 
     // Current Turn
     Color currentTurn;
+
+    // Execution Mode (Single Run Mode- Profiling Mode)
+    ExecMode executionMode;
 };
 
 #endif

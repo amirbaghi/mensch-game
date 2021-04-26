@@ -7,6 +7,35 @@ Board::Board(Model *model) : Actor(model)
 
 Board::~Board()
 {
+    for (auto s : regularSquares)
+    {
+        delete s;
+    }
+    regularSquares.clear();
+
+    for (auto s : redHomeRow)
+    {
+        delete s;
+    }
+    redHomeRow.clear();
+
+    for (auto s : yellowHomeRow)
+    {
+        delete s;
+    }
+    yellowHomeRow.clear();
+
+    for (auto s : blueHomeRow)
+    {
+        delete s;
+    }
+    blueHomeRow.clear();
+
+    for (auto s : greenHomeRow)
+    {
+        delete s;
+    }
+    greenHomeRow.clear();
 }
 
 void Board::render()

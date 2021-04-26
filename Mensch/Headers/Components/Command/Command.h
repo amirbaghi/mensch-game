@@ -10,7 +10,7 @@ public:
     virtual ~Command();
 
     // Execute command for each command
-    virtual Event* execute() = 0;
+    virtual Event* execute(bool shouldLog) = 0;
 };
 
 #endif

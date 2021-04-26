@@ -4,9 +4,7 @@ int main(int argc, char** argv)
 {
     Game* game = Game::instance();
 
-    game->initGame();
-
-    game->mainLoop();
+    game->run();
 
     return 0;
 }

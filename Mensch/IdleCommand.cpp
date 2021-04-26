@@ -19,7 +19,7 @@ void IdleCommand::setDiceNum(int diceNum)
     this->diceNum = diceNum;
 }
 
-Event *IdleCommand::execute()
+Event *IdleCommand::execute(bool shouldLog)
 {
     // Nothing should be done
     Event *e = new Event();

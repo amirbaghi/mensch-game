@@ -25,7 +25,8 @@ PhysicsEngine *PhysicsEngine::instance(Game *game)
 void PhysicsEngine::update(Command &command)
 {
     // Execute the command
-    Event *event = command.execute();
+    bool shouldLog = (game->getExecutionMode() == SINGLE_RUN) ? true : false;
+    Event *event = command.execute(shouldLog);
 
     // Notify all the observers of the event that happened
     notify((*event));

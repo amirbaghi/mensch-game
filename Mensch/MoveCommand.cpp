@@ -39,7 +39,7 @@ void MoveCommand::setDiceNum(int diceNum)
     this->diceNum = diceNum;
 }
 
-Event *MoveCommand::execute()
+Event *MoveCommand::execute(bool shouldLog)
 {
 
     Square *source = this->piece->getCurrentSquare();
@@ -62,42 +62,43 @@ Event *MoveCommand::execute()
     // Set the current square for the piece accordingly
     this->piece->setCurrentSquare(this->destination);
 
+    if (shouldLog)
+    {
+        // Logging the move
+        switch (this->piece->getPieceColor())
+        {
+        case RED:
+            std::cout << "RED ";
+            break;
+        case BLUE:
+            std::cout << "BLUE ";
+            break;
+        case GREEN:
+            std::cout << "GREEN ";
+            break;
+        case YELLOW:
+            std::cout << "YELLOW ";
+            break;
+        default:
+            break;
+        }
 
-    // Logging the move
-    switch (this->piece->getPieceColor())
-    {
-    case RED:
-        std::cout << "RED ";
-        break;
-    case BLUE:
-        std::cout << "BLUE ";
-        break;
-    case GREEN:
-        std::cout << "GREEN ";
-        break;
-    case YELLOW:
-        std::cout << "YELLOW ";
-        break;
-    default:
-        break;
+        std::cout << "MOVED A PIECE FROM ";
+        if (source == nullptr)
+        {
+            std::cout << "HOME";
+        }
+        else
+        {
+            std::cout << "SQUARE " << source->getSquareNumber();
+        }
+        std::cout << " TO ";
+        if (destination->getIsHomeRowSquare())
+        {
+            std::cout << "HOME ROW ";
+        }
+        std::cout << "SQUARE " << destination->getSquareNumber() << std::endl;
     }
-
-    std::cout << "MOVED A PIECE FROM ";
-    if (source == nullptr)
-    {
-        std::cout << "HOME";
-    }
-    else
-    {
-        std::cout << "SQUARE " << source->getSquareNumber();
-    }
-    std::cout << " TO ";
-    if (destination->getIsHomeRowSquare())
-    {
-        std::cout << "HOME ROW ";
-    }
-    std::cout << "SQUARE " << destination->getSquareNumber() << std::endl;
-
 
     // Generating the appropriate event
     Event *e = new Event();

@@ -26,7 +26,7 @@ public:
     void setDiceNum(int diceNum);
 
     // Execute command
-    Event *execute();
+    Event *execute(bool shouldLog);
 
 private:
     // Destination Square of the move

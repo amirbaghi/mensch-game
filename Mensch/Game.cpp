@@ -15,10 +15,11 @@ Game::~Game()
     delete pieceSpawner;
     delete board;
 
-    for (auto it = pieces.begin(); it != pieces.end(); it++)
+    for (auto p : pieces)
     {
-        delete *it;
+        delete p;
     }
+    pieces.clear();
 }
 
 Game *Game::instance()
@@ -30,6 +31,11 @@ Game *Game::instance()
 Board *Game::getBoard()
 {
     return this->board;
+}
+
+ExecMode Game::getExecutionMode()
+{
+    return this->executionMode;
 }
 
 std::vector<Piece *> Game::getPieces()
@@ -68,6 +74,41 @@ void Game::nextTurn()
     default:
         break;
     }
+}
+
+void Game::resetState()
+{
+    // Clear the previous Game state
+    delete board;
+
+    for (auto p : pieces)
+    {
+        delete p;
+    }
+    pieces.clear();
+
+    // Initialize the game state with new values (reset)
+
+    // Spawning the Board
+    board = boardSpawner->spawn();
+
+    // Spawning the pieces
+    for (int currentColor = RED; currentColor != NOCOLOR; currentColor++)
+    {
+        pieceSpawner->setSpawnColor(static_cast<Color>(currentColor));
+        Piece *p1 = pieceSpawner->spawn();
+        Piece *p2 = pieceSpawner->spawn();
+        Piece *p3 = pieceSpawner->spawn();
+        Piece *p4 = pieceSpawner->spawn();
+
+        pieces.push_back(p1);
+        pieces.push_back(p2);
+        pieces.push_back(p3);
+        pieces.push_back(p4);
+    }
+
+    // Initialize the current turn
+    currentTurn = RED;
 }
 
 void Game::initGame()
@@ -143,6 +184,9 @@ void Game::mainLoop()
             // If a home row is full
             if (isHomeRowFull)
             {
+                // Print only if we are executing on single run mode
+                if (executionMode == SINGLE_RUN)
+                {
                 // Print the winner
                 switch (color)
                 {
@@ -169,6 +213,8 @@ void Game::mainLoop()
 
                 // Print the elapsed time
                 std::cout << "Elapsed Time: " << float(clock() - startTime) / CLOCKS_PER_SEC << std::endl;
+                }
+
                 return;
             }
         }
@@ -191,4 +237,48 @@ void Game::mainLoop()
         count++;
 
     } while (true);
+}
+
+void Game::run()
+{
+    // Choose the execution mode (Decided by user input)
+    int type = 1;
+    while (true)
+    {
+        std::cout << "\033[H\033[J";
+        std::cout << "Mensch.\nChoose the desired execution mode: (Enter 1 for Single Run, 2 for Profiling)\n";
+        std::cin >> type;
+
+        if (type == 1)
+        {
+            this->executionMode = SINGLE_RUN;
+            std::cout << "\033[H\033[J";
+            break;
+        }
+        else if (type == 2)
+        {
+            this->executionMode = PROFILING;
+            std::cout << "\033[H\033[J";
+            break;
+        }
+    }
+
+    // Initialize the game for the first time
+    this->initGame();
+
+    // Running the game
+    this->mainLoop();
+
+    // Profiling Execution (Game is run 1000 times)
+    if (this->executionMode == PROFILING)
+    {
+        for (int i = 0; i < 999; i++)
+        {
+            // Reset the game state
+            this->resetState();
+
+            // Run another round of the game
+            this->mainLoop();
+        }
+    }
 }

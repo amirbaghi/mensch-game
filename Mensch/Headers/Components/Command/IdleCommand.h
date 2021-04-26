@@ -16,7 +16,7 @@ public:
     void setDiceNum(int diceNum);
 
     // Execute command
-    Event* execute();
+    Event* execute(bool shouldLog);
 
 private:
     // Dice Number for this idle move
