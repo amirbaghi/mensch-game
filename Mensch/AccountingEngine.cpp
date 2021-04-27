@@ -25,7 +25,6 @@ void AccountingEngine::initAccounting()
     std::remove("stats.txt");
 
     // Initializing the counters for all players as 0
-
     redWaitDuration = 0;
     blueWaitDuration = 0;
     greenWaitDuration = 0;
@@ -57,10 +56,10 @@ void AccountingEngine::writeOut(time_t time)
 
     std::ofstream f;
     f.open("stats.txt", std::ios::out | std::ios::app);
-    f << (float)time / CLOCKS_PER_SEC << " " << redWaitDuration << "/" << redGainedScore << "/" << redLostScore << "/" << redNumberOfStarts << " "
-      << blueWaitDuration << "/" << blueGainedScore << "/" << blueLostScore << "/" << blueNumberOfStarts << " "
-      << greenWaitDuration << "/" << greenGainedScore << "/" << greenLostScore << "/" << greenNumberOfStarts << " "
-      << yellowWaitDuration << "/" << yellowGainedScore << "/" << yellowLostScore << "/" << yellowNumberOfStarts << std::endl;
+    f << (float)time / CLOCKS_PER_SEC << " " << redWaitDuration << "/" << redGainedScore << "/" << redLostScore << "/" << redNumberOfStarts << "/" << redCoveredDistance << " "
+      << blueWaitDuration << "/" << blueGainedScore << "/" << blueLostScore << "/" << blueNumberOfStarts << "/" << blueCoveredDistance << " "
+      << greenWaitDuration << "/" << greenGainedScore << "/" << greenLostScore << "/" << greenNumberOfStarts << "/" << greenCoveredDistance << " "
+      << yellowWaitDuration << "/" << yellowGainedScore << "/" << yellowLostScore << "/" << yellowNumberOfStarts << "/" << yellowCoveredDistance << std::endl;
     f.close();
 }
 
@@ -77,21 +76,25 @@ void AccountingEngine::plotOut()
     std::vector<double> redGainedScore(1000);
     std::vector<double> redLostScore(1000);
     std::vector<double> redNumberOfStarts(1000);
+    std::vector<double> redCoveredDistance(1000);
 
     std::vector<double> blueWaitDuration(1000);
     std::vector<double> blueGainedScore(1000);
     std::vector<double> blueLostScore(1000);
     std::vector<double> blueNumberOfStarts(1000);
+    std::vector<double> blueCoveredDistance(1000);
 
     std::vector<double> greenWaitDuration(1000);
     std::vector<double> greenGainedScore(1000);
     std::vector<double> greenLostScore(1000);
     std::vector<double> greenNumberOfStarts(1000);
+    std::vector<double> greenCoveredDistance(1000);
 
     std::vector<double> yellowWaitDuration(1000);
     std::vector<double> yellowGainedScore(1000);
     std::vector<double> yellowLostScore(1000);
     std::vector<double> yellowNumberOfStarts(1000);
+    std::vector<double> yellowCoveredDistance(1000);
 
     while (getline(f, line))
     {
@@ -112,6 +115,9 @@ void AccountingEngine::plotOut()
         iss.ignore(1);
         iss >> temp;
         redNumberOfStarts.push_back(temp);
+        iss.ignore(1);
+        iss >> temp;
+        redCoveredDistance.push_back(temp);
 
         iss.ignore(1);
         iss >> temp;
@@ -125,6 +131,9 @@ void AccountingEngine::plotOut()
         iss.ignore(1);
         iss >> temp;
         blueNumberOfStarts.push_back(temp);
+        iss.ignore(1);
+        iss >> temp;
+        blueCoveredDistance.push_back(temp);
 
         iss.ignore(1);
         iss >> temp;
@@ -138,6 +147,9 @@ void AccountingEngine::plotOut()
         iss.ignore(1);
         iss >> temp;
         greenNumberOfStarts.push_back(temp);
+        iss.ignore(1);
+        iss >> temp;
+        greenCoveredDistance.push_back(temp);
 
         iss.ignore(1);
         iss >> temp;
@@ -151,6 +163,9 @@ void AccountingEngine::plotOut()
         iss.ignore(1);
         iss >> temp;
         yellowNumberOfStarts.push_back(temp);
+        iss.ignore(1);
+        iss >> temp;
+        yellowCoveredDistance.push_back(temp);
     }
 
     matplotlibcpp::title("Wait Durations");
@@ -199,6 +214,19 @@ void AccountingEngine::plotOut()
     matplotlibcpp::legend();
 
     matplotlibcpp::save("number_of_starts_chart.png");
+
+    matplotlibcpp::clf();
+
+    matplotlibcpp::title("Covered Distance");
+
+    matplotlibcpp::named_plot("Player Red", time_axis, redCoveredDistance, "r");
+    matplotlibcpp::named_plot("Player Blue", time_axis, blueCoveredDistance, "b");
+    matplotlibcpp::named_plot("Player Green", time_axis, greenCoveredDistance, "g");
+    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowCoveredDistance, "y");
+
+    matplotlibcpp::legend();
+
+    matplotlibcpp::save("covered_distances_chart.png");
 }
 
 void AccountingEngine::onNotify(Event &event)
@@ -225,6 +253,10 @@ void AccountingEngine::onNotify(Event &event)
         {
             redLostScore += 1;
         }
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
+        {
+            redCoveredDistance += 1;
+        }
         break;
     case BLUE:
         if (eventType == EVENT_NO_MOVE)
@@ -242,6 +274,10 @@ void AccountingEngine::onNotify(Event &event)
         else if (eventType == EVENT_PIECE_HIT)
         {
             blueLostScore += 1;
+        }
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
+        {
+            blueCoveredDistance += 1;
         }
         break;
     case GREEN:
@@ -261,6 +297,10 @@ void AccountingEngine::onNotify(Event &event)
         {
             greenLostScore += 1;
         }
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
+        {
+            greenCoveredDistance += 1;
+        }
         break;
     case YELLOW:
         if (eventType == EVENT_NO_MOVE)
@@ -278,6 +318,10 @@ void AccountingEngine::onNotify(Event &event)
         else if (eventType == EVENT_PIECE_HIT)
         {
             yellowLostScore += 1;
+        }
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
+        {
+            yellowCoveredDistance += 1;
         }
         break;
     default:
