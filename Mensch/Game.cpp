@@ -296,5 +296,8 @@ void Game::run()
             // Write out the record for this round
             this->accountingEngine->writeOut(clock());
         }
+
+        // Plot out the stats
+        this->accountingEngine->plotOut();
     }
 }

@@ -19,6 +19,9 @@ public:
     // Method to write out the current stats to file
     void writeOut(time_t time);
 
+    // Method to plot out the stats file to a .png 
+    void plotOut();
+
     // Init method
     void initAccounting();
 
