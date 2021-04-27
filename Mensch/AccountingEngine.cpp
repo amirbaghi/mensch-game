@@ -255,7 +255,7 @@ void AccountingEngine::onNotify(Event &event)
         }
         if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
-            redCoveredDistance += 1;
+            redCoveredDistance += event.getDiceNum();
         }
         break;
     case BLUE:
@@ -277,7 +277,7 @@ void AccountingEngine::onNotify(Event &event)
         }
         if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
-            blueCoveredDistance += 1;
+            blueCoveredDistance += event.getDiceNum();
         }
         break;
     case GREEN:
@@ -299,7 +299,7 @@ void AccountingEngine::onNotify(Event &event)
         }
         if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
-            greenCoveredDistance += 1;
+            greenCoveredDistance += event.getDiceNum();
         }
         break;
     case YELLOW:
@@ -321,7 +321,7 @@ void AccountingEngine::onNotify(Event &event)
         }
         if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
-            yellowCoveredDistance += 1;
+            yellowCoveredDistance += event.getDiceNum();
         }
         break;
     default:
