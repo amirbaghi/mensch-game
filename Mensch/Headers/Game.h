@@ -89,7 +89,7 @@ private:
     std::vector<Piece *> pieces;
 
     // Start Time
-    clock_t startTime;
+    std::chrono::steady_clock::time_point startTime;
 
     // Current Turn
     Color currentTurn;

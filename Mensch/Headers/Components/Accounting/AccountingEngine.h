@@ -17,8 +17,14 @@ public:
     static AccountingEngine *instance();
 
     // Method to write out the current stats to file
-    void writeOut(time_t time);
+    void writeOut(double time);
 
+    // Method to plot out the cumulative chart
+    void plotOutCumulative();
+
+    // Method to plot out the windowed chart (give interval in seconds)
+    void plotOutWindowed(double interval);
+    
     // Method to plot out the stats file to a .png 
     void plotOut();
 
