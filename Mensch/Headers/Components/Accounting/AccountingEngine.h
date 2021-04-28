@@ -24,7 +24,7 @@ public:
 
     // Method to plot out the windowed chart (give interval in seconds)
     void plotOutWindowed(double interval);
-    
+
     // Method to plot out the stats file to a .png 
     void plotOut();
 
