@@ -277,14 +277,14 @@ void Game::run()
     // Running the game
     this->mainLoop();
 
-    // Profiling Execution (Game is run 60 times)
+    // Profiling Execution (Game is run 120 times)
     if (this->executionMode == PROFILING)
     {
         // Write out the record for the first run
         double time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startTime).count() / 1000000.0;
         this->accountingEngine->writeOut(time);
 
-        for (int i = 0; i < 59; i++)
+        for (int i = 0; i < 119; i++)
         {
             // Reset the game state
             this->resetState();

@@ -228,7 +228,6 @@ void AccountingEngine::plotOutCumulative()
     matplotlibcpp::legend();
 
     matplotlibcpp::save("covered_distances_chart.png");
-
 }
 
 void AccountingEngine::plotOutWindowed(double interval)
@@ -454,7 +453,7 @@ void AccountingEngine::plotOut()
 {
     plotOutCumulative();
     matplotlibcpp::clf();
-    plotOutWindowed(30.0);
+    plotOutWindowed(60.0);
 }
 
 void AccountingEngine::onNotify(Event &event)
@@ -469,19 +468,17 @@ void AccountingEngine::onNotify(Event &event)
         {
             redWaitDuration += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW || eventType == EVENT_PIECE_MOVED_HIT_PIECE ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             redGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             redNumberOfStarts += 1;
         }
-        else if (eventType == EVENT_PIECE_HIT)
-        {
-            redLostScore += 1;
-        }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME || eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             redCoveredDistance += event.getDiceNum();
         }
@@ -491,19 +488,17 @@ void AccountingEngine::onNotify(Event &event)
         {
             blueWaitDuration += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW || eventType == EVENT_PIECE_MOVED_HIT_PIECE ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             blueGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             blueNumberOfStarts += 1;
         }
-        else if (eventType == EVENT_PIECE_HIT)
-        {
-            blueLostScore += 1;
-        }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME || eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             blueCoveredDistance += event.getDiceNum();
         }
@@ -513,19 +508,17 @@ void AccountingEngine::onNotify(Event &event)
         {
             greenWaitDuration += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW || eventType == EVENT_PIECE_MOVED_HIT_PIECE ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             greenGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             greenNumberOfStarts += 1;
         }
-        else if (eventType == EVENT_PIECE_HIT)
-        {
-            greenLostScore += 1;
-        }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME || eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             greenCoveredDistance += event.getDiceNum();
         }
@@ -535,24 +528,47 @@ void AccountingEngine::onNotify(Event &event)
         {
             yellowWaitDuration += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_ROW || eventType == EVENT_PIECE_MOVED_HIT_PIECE ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             yellowGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME ||
+                 eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             yellowNumberOfStarts += 1;
         }
-        else if (eventType == EVENT_PIECE_HIT)
-        {
-            yellowLostScore += 1;
-        }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME || eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
         {
             yellowCoveredDistance += event.getDiceNum();
         }
         break;
     default:
         break;
+    }
+
+    // Checking if any piece was hit
+    if (eventType == EVENT_PIECE_MOVED_HIT_PIECE ||
+        eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE)
+    {
+        Actor *hitPiece = event.getActors().at(1);
+        switch (hitPiece->getColor())
+        {
+        case RED:
+            redLostScore += 1;
+            break;
+        case BLUE:
+            blueLostScore += 1;
+            break;
+        case GREEN:
+            greenLostScore += 1;
+            break;
+        case YELLOW:
+            yellowLostScore += 1;
+            break;
+
+        default:
+            break;
+        }
     }
 }

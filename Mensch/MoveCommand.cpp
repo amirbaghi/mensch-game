@@ -57,6 +57,22 @@ Event *MoveCommand::execute(bool shouldLog)
         }
     }
 
+    // See if there is a piece of different color in the destination
+    Piece *hitPiece = nullptr;
+    if (this->destination->getCurrentPieces().size() == 1 && this->destination->getCurrentPieces().front()->getColor() != this->piece->getColor())
+    {
+        hitPiece = this->destination->getCurrentPieces().front();
+
+        // Remove the hit piece from the destination square
+        this->destination->removePiece(hitPiece);
+
+        // Send the piece in the destination to home (hit the piece)
+        hitPiece->setCurrentSquare(nullptr);
+
+        // Reset its hasPassedHomeSquare record
+        hitPiece->setHasPassedHomeSquare(false);
+    }
+
     // Add the piece to the new square
     this->destination->addPiece(this->piece);
 
@@ -98,13 +114,46 @@ Event *MoveCommand::execute(bool shouldLog)
         {
             std::cout << "HOME ROW ";
         }
-        std::cout << "SQUARE " << destination->getSquareNumber() << std::endl;
+        std::cout << "SQUARE " << destination->getSquareNumber();
+
+        if (hitPiece != nullptr)
+        {
+            std::cout << " & HIT A ";
+
+            switch (hitPiece->getColor())
+            {
+            case RED:
+                std::cout << "RED ";
+                break;
+            case BLUE:
+                std::cout << "BLUE ";
+                break;
+            case GREEN:
+                std::cout << "GREEN ";
+                break;
+            case YELLOW:
+                std::cout << "YELLOW ";
+                break;
+            default:
+                break;
+            }
+
+            std::cout << "PIECE IN THAT SQUARE";
+        }
+
+        std::cout << std::endl;
     }
 
     // Generating the appropriate event
     Event *e = new Event();
 
-    e->setActor(this->piece);
+    std::vector<Actor *> actors = e->getActors();
+    actors.push_back(this->piece);
+    if (hitPiece != nullptr)
+    {
+        actors.push_back(hitPiece);
+    }
+    e->setActors(actors);
     e->setPlayer(this->player);
     e->setDiceNum(this->diceNum);
 
@@ -116,16 +165,37 @@ Event *MoveCommand::execute(bool shouldLog)
     {
         if (source == nullptr)
         {
-            e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME);
+            if (hitPiece != nullptr)
+            {
+                e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME_HIT_PIECE);
+            }
+            else
+            {
+                e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME);
+            }
         }
         else
         {
-            e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE);
+            if (hitPiece != nullptr)
+            {
+                e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE_HIT_PIECE);
+            }
+            else
+            {
+                e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE);
+            }
         }
     }
     else
     {
-        e->setEventType(EVENT_PIECE_MOVED);
+        if (hitPiece != nullptr)
+        {
+            e->setEventType(EVENT_PIECE_MOVED_HIT_PIECE);
+        }
+        else
+        {
+            e->setEventType(EVENT_PIECE_MOVED);
+        }
     }
 
     return e;

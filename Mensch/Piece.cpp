@@ -46,18 +46,4 @@ bool Piece::getHasPassedHomeSquare()
 
 void Piece::onNotify(Event &event)
 {
-    // If the event has not happened for this actor
-    if (event.getActor() != this)
-    {
-        // React accordingly to the event
-        switch (event.getEventType())
-        {
-        case EVENT_PIECE_MOVED:
-            break;
-        case EVENT_NO_MOVE:
-            break;
-        default:
-            break;
-        }
-    }
 }

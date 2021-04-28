@@ -1,6 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include <vector>
 #include "../Actors/Actor.h"
 #include "./EventType.h"
 
@@ -10,8 +11,8 @@ public:
     Event();
     ~Event();
 
-    // Actor getter
-    Actor* getActor();
+    // Actors getter
+    std::vector<Actor *> getActors();
     // Player getter
     Color getPlayer();
     // EventType Getter
@@ -21,21 +22,21 @@ public:
 
     // Player Setter
     void setPlayer(Color player);
-    // Actor Setter
-    void setActor(Actor* actor);
+    // Actors Setter
+    void setActors(std::vector<Actor *> actors);
     // EventType Setter
     void setEventType(EventType eventType);
     // Dice Number Setter
     void setDiceNum(int diceNum);
 
 private:
-    // The actor associated with the event
-    Actor *actor;
+    // The actors associated with the event
+    std::vector<Actor *> actors;
     // The type of event
     EventType event;
     // The Dice Number for which the event has happened
     int diceNum;
-    // Player associated with the event
+    // Player who's caused the event
     Color player;
 };
 

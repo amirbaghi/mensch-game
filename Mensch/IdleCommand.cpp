@@ -24,7 +24,6 @@ Event *IdleCommand::execute(bool shouldLog)
     // Nothing should be done
     Event *e = new Event();
 
-    e->setActor(nullptr);
     e->setPlayer(this->player);
     e->setDiceNum(this->diceNum);
     e->setEventType(EVENT_NO_MOVE);

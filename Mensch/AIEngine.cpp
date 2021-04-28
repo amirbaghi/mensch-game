@@ -69,19 +69,19 @@ Command *AIEngine::generateMove(Color player)
 
                 if (destination->getCurrentPieces().size() < 2)
                 {
-                    // Seeing if there is a different color piece in the square
-                    bool squareIsOccupied = false;
-                    for (Piece *piece : destination->getCurrentPieces())
-                    {
-                        if (piece->getColor() != player)
-                        {
-                            squareIsOccupied = true;
-                        }
-                    }
+                    // // Seeing if there is a different color piece in the square
+                    // bool squareIsOccupied = false;
+                    // for (Piece *piece : destination->getCurrentPieces())
+                    // {
+                    //     if (piece->getColor() != player)
+                    //     {
+                    //         squareIsOccupied = true;
+                    //     }
+                    // }
 
-                    // If the square is not occupied by another color piece, we are good to go
-                    if (!squareIsOccupied)
-                    {
+                    // // If the square is not occupied by another color piece, we are good to go
+                    // if (!squareIsOccupied)
+                    // {
                         MoveCommand *command = new MoveCommand();
 
                         command->setPiece(p);
@@ -90,7 +90,7 @@ Command *AIEngine::generateMove(Color player)
                         command->setPlayer(player);
 
                         return command;
-                    }
+                    // }
                 }
             }
         }
@@ -154,19 +154,19 @@ Command *AIEngine::generateMove(Color player)
             // If there is one or zero pieces on the square
             if (destination->getCurrentPieces().size() < 2)
             {
-                // Seeing if there is a different color piece in the square
-                bool squareIsOccupied = false;
-                for (Piece *piece : destination->getCurrentPieces())
-                {
-                    if (piece->getColor() != player)
-                    {
-                        squareIsOccupied = true;
-                    }
-                }
+                // // Seeing if there is a different color piece in the square
+                // bool squareIsOccupied = false;
+                // for (Piece *piece : destination->getCurrentPieces())
+                // {
+                //     if (piece->getColor() != player)
+                //     {
+                //         squareIsOccupied = true;
+                //     }
+                // }
 
-                // If the square is not occupied by another color piece, we are good to go
-                if (!squareIsOccupied)
-                {
+                // // If the square is not occupied by another color piece, we are good to go
+                // if (!squareIsOccupied)
+                // {
                     MoveCommand *command = new MoveCommand();
 
                     command->setPiece(p);
@@ -175,7 +175,7 @@ Command *AIEngine::generateMove(Color player)
                     command->setPlayer(player);
 
                     return command;
-                }
+                // }
             }
         }
 

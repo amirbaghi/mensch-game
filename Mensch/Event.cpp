@@ -8,9 +8,9 @@ Event::~Event()
 {
 }
 
-Actor *Event::getActor()
+std::vector<Actor *> Event::getActors()
 {
-    return this->actor;
+    return this->actors;
 }
 
 Color Event::getPlayer()
@@ -38,9 +38,9 @@ void Event::setDiceNum(int diceNum)
     this->diceNum = diceNum;
 }
 
-void Event::setActor(Actor *actor)
+void Event::setActors(std::vector<Actor *> actors)
 {
-    this->actor = actor;
+    this->actors = actors;
 }
 
 void Event::setEventType(EventType eventType)
