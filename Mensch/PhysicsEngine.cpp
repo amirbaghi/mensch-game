@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "./Headers/Components/Physics/PhsyicsEngine.h"
 #include "./Headers/Components/Events/Event.h"
 #include "./Headers/Game.h"
@@ -26,6 +27,9 @@ void PhysicsEngine::update(Command &command)
     // Execute the command
     bool shouldLog = (game->getExecutionMode() == SINGLE_RUN) ? true : false;
     Event *event = command.execute(shouldLog);
+
+    // Simulate Time
+    usleep(10 * 1000);
 
     // Notify all the observers of the event that happened
     notify((*event));

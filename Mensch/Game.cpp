@@ -78,8 +78,6 @@ void Game::nextTurn()
 
 void Game::resetState()
 {
-    // Setting the start time for the game
-    startTime = clock();
 
     // Clear the previous Game state
     delete board;
@@ -117,7 +115,7 @@ void Game::resetState()
 void Game::initGame()
 {
     // Setting the start time for the game
-    startTime = clock();
+    startTime = std::chrono::steady_clock::now();
 
     std::srand((unsigned int)std::time(NULL));
 
@@ -197,32 +195,32 @@ void Game::mainLoop()
                 // Print only if we are executing on single run mode
                 if (executionMode == SINGLE_RUN)
                 {
-                // Print the winner
-                switch (color)
-                {
-                case RED:
-                    std::cout << "RED";
-                    break;
-                case BLUE:
-                    std::cout << "BLUE";
-                    break;
-                case GREEN:
-                    std::cout << "GREEN";
-                    break;
-                case YELLOW:
-                    std::cout << "YELLOW";
-                    break;
-                default:
-                    break;
-                }
-                std::cout << " WINS" << std::endl;
+                    // Print the winner
+                    switch (color)
+                    {
+                    case RED:
+                        std::cout << "RED";
+                        break;
+                    case BLUE:
+                        std::cout << "BLUE";
+                        break;
+                    case GREEN:
+                        std::cout << "GREEN";
+                        break;
+                    case YELLOW:
+                        std::cout << "YELLOW";
+                        break;
+                    default:
+                        break;
+                    }
+                    std::cout << " WINS" << std::endl;
 
-                // Print the number of turns
-                std::cout << "Number of Turns: ";
-                std::cout << count << std::endl;
+                    // Print the number of turns
+                    std::cout << "Number of Turns: ";
+                    std::cout << count << std::endl;
 
-                // Print the elapsed time
-                std::cout << "Elapsed Time: " << float(clock() - startTime) / CLOCKS_PER_SEC << std::endl;
+                    // Print the elapsed time
+                    std::cout << "Elapsed Time: " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startTime).count() / 1000000.0 << std::endl;
                 }
 
                 return;
@@ -279,13 +277,14 @@ void Game::run()
     // Running the game
     this->mainLoop();
 
-    // Profiling Execution (Game is run 1000 times)
+    // Profiling Execution (Game is run 60 times)
     if (this->executionMode == PROFILING)
     {
         // Write out the record for the first run
-        this->accountingEngine->writeOut(clock());
+        double time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startTime).count() / 1000000.0;
+        this->accountingEngine->writeOut(time);
 
-        for (int i = 0; i < 999; i++)
+        for (int i = 0; i < 59; i++)
         {
             // Reset the game state
             this->resetState();
@@ -294,7 +293,8 @@ void Game::run()
             this->mainLoop();
 
             // Write out the record for this round
-            this->accountingEngine->writeOut(clock());
+            time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - startTime).count() / 1000000.0;
+            this->accountingEngine->writeOut(time);
         }
 
         // Plot out the stats
