@@ -1,5 +1,4 @@
 #include "./Headers/Components/Command/MoveCommand.h"
-#include <unistd.h>
 #include <iostream>
 
 MoveCommand::MoveCommand()
@@ -114,14 +113,7 @@ Event *MoveCommand::execute(bool shouldLog)
     }
     else if (this->destination->getIsHomeSquare() && this->destination->getColor() == this->piece->getColor())
     {
-        if (source == nullptr)
-        {
-            e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME);
-        }
-        else
-        {
-            e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE);
-        }
+        e->setEventType(EVENT_PIECE_MOVED_TO_HOME_SQUARE);
     }
     else
     {

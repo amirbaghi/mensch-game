@@ -51,49 +51,50 @@ void AccountingEngine::initAccounting()
     yellowCoveredDistance = 0;
 }
 
-void AccountingEngine::writeOut(double time)
+void AccountingEngine::writeOut(time_t time)
 {
+
     std::ofstream f;
     f.open("stats.txt", std::ios::out | std::ios::app);
-    f << time << " " << redWaitDuration << "/" << redGainedScore << "/" << redLostScore << "/" << redNumberOfStarts << "/" << redCoveredDistance << " "
+    f << (float)time / CLOCKS_PER_SEC << " " << redWaitDuration << "/" << redGainedScore << "/" << redLostScore << "/" << redNumberOfStarts << "/" << redCoveredDistance << " "
       << blueWaitDuration << "/" << blueGainedScore << "/" << blueLostScore << "/" << blueNumberOfStarts << "/" << blueCoveredDistance << " "
       << greenWaitDuration << "/" << greenGainedScore << "/" << greenLostScore << "/" << greenNumberOfStarts << "/" << greenCoveredDistance << " "
       << yellowWaitDuration << "/" << yellowGainedScore << "/" << yellowLostScore << "/" << yellowNumberOfStarts << "/" << yellowCoveredDistance << std::endl;
     f.close();
 }
 
-void AccountingEngine::plotOutCumulative()
+void AccountingEngine::plotOut()
 {
     std::ifstream f("stats.txt");
     std::string tempstr;
     std::string line;
     double temp;
 
-    std::vector<double> time_axis;
+    std::vector<double> time_axis(1000);
 
-    std::vector<double> redWaitDuration;
-    std::vector<double> redGainedScore;
-    std::vector<double> redLostScore;
-    std::vector<double> redNumberOfStarts;
-    std::vector<double> redCoveredDistance;
+    std::vector<double> redWaitDuration(1000);
+    std::vector<double> redGainedScore(1000);
+    std::vector<double> redLostScore(1000);
+    std::vector<double> redNumberOfStarts(1000);
+    std::vector<double> redCoveredDistance(1000);
 
-    std::vector<double> blueWaitDuration;
-    std::vector<double> blueGainedScore;
-    std::vector<double> blueLostScore;
-    std::vector<double> blueNumberOfStarts;
-    std::vector<double> blueCoveredDistance;
+    std::vector<double> blueWaitDuration(1000);
+    std::vector<double> blueGainedScore(1000);
+    std::vector<double> blueLostScore(1000);
+    std::vector<double> blueNumberOfStarts(1000);
+    std::vector<double> blueCoveredDistance(1000);
 
-    std::vector<double> greenWaitDuration;
-    std::vector<double> greenGainedScore;
-    std::vector<double> greenLostScore;
-    std::vector<double> greenNumberOfStarts;
-    std::vector<double> greenCoveredDistance;
+    std::vector<double> greenWaitDuration(1000);
+    std::vector<double> greenGainedScore(1000);
+    std::vector<double> greenLostScore(1000);
+    std::vector<double> greenNumberOfStarts(1000);
+    std::vector<double> greenCoveredDistance(1000);
 
-    std::vector<double> yellowWaitDuration;
-    std::vector<double> yellowGainedScore;
-    std::vector<double> yellowLostScore;
-    std::vector<double> yellowNumberOfStarts;
-    std::vector<double> yellowCoveredDistance;
+    std::vector<double> yellowWaitDuration(1000);
+    std::vector<double> yellowGainedScore(1000);
+    std::vector<double> yellowLostScore(1000);
+    std::vector<double> yellowNumberOfStarts(1000);
+    std::vector<double> yellowCoveredDistance(1000);
 
     while (getline(f, line))
     {
@@ -167,8 +168,6 @@ void AccountingEngine::plotOutCumulative()
         yellowCoveredDistance.push_back(temp);
     }
 
-    f.close();
-
     matplotlibcpp::title("Wait Durations");
 
     matplotlibcpp::named_plot("Player Red", time_axis, redWaitDuration, "r");
@@ -228,233 +227,6 @@ void AccountingEngine::plotOutCumulative()
     matplotlibcpp::legend();
 
     matplotlibcpp::save("covered_distances_chart.png");
-
-}
-
-void AccountingEngine::plotOutWindowed(double interval)
-{
-
-    std::ifstream f("stats.txt");
-    std::string tempstr;
-    std::string line;
-    double temp;
-    double previous_time = 0.0;
-
-    double previous_redWaitDuration = 0.0;
-    double previous_blueWaitDuration = 0.0;
-    double previous_greenWaitDuration = 0.0;
-    double previous_yellowWaitDuration = 0.0;
-
-    double previous_redGainedScore = 0.0;
-    double previous_blueGainedScore = 0.0;
-    double previous_greenGainedScore = 0.0;
-    double previous_yellowGainedScore = 0.0;
-
-    double previous_redLostScore = 0.0;
-    double previous_blueLostScore = 0.0;
-    double previous_greenLostScore = 0.0;
-    double previous_yellowLostScore = 0.0;
-
-    double previous_redNumberOfStarts = 0.0;
-    double previous_blueNumberOfStarts = 0.0;
-    double previous_greenNumberOfStarts = 0.0;
-    double previous_yellowNumberOfStarts = 0.0;
-
-    double previous_redCoveredDistance = 0.0;
-    double previous_blueCoveredDistance = 0.0;
-    double previous_greenCoveredDistance = 0.0;
-    double previous_yellowCoveredDistance = 0.0;
-
-    std::vector<double> time_axis;
-
-    std::vector<double> redWaitDuration;
-    std::vector<double> redGainedScore;
-    std::vector<double> redLostScore;
-    std::vector<double> redNumberOfStarts;
-    std::vector<double> redCoveredDistance;
-
-    std::vector<double> blueWaitDuration;
-    std::vector<double> blueGainedScore;
-    std::vector<double> blueLostScore;
-    std::vector<double> blueNumberOfStarts;
-    std::vector<double> blueCoveredDistance;
-
-    std::vector<double> greenWaitDuration;
-    std::vector<double> greenGainedScore;
-    std::vector<double> greenLostScore;
-    std::vector<double> greenNumberOfStarts;
-    std::vector<double> greenCoveredDistance;
-
-    std::vector<double> yellowWaitDuration;
-    std::vector<double> yellowGainedScore;
-    std::vector<double> yellowLostScore;
-    std::vector<double> yellowNumberOfStarts;
-    std::vector<double> yellowCoveredDistance;
-
-    while (getline(f, line))
-    {
-        std::istringstream iss(line);
-
-        iss >> temp;
-        if (temp - previous_time >= interval)
-        {
-            previous_time = temp;
-            time_axis.push_back(temp);
-
-            iss.ignore(1);
-            iss >> temp;
-            redWaitDuration.push_back(temp - previous_redWaitDuration);
-            previous_redWaitDuration = temp;
-            iss.ignore(1);
-            iss >> temp;
-            redGainedScore.push_back(temp - previous_redGainedScore);
-            previous_redGainedScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            redLostScore.push_back(temp - previous_redLostScore);
-            previous_redLostScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            redNumberOfStarts.push_back(temp - previous_redNumberOfStarts);
-            previous_redNumberOfStarts = temp;
-            iss.ignore(1);
-            iss >> temp;
-            redCoveredDistance.push_back(temp - previous_redCoveredDistance);
-            previous_redCoveredDistance = temp;
-
-            iss.ignore(1);
-            iss >> temp;
-            blueWaitDuration.push_back(temp - previous_blueWaitDuration);
-            previous_blueWaitDuration = temp;
-            iss.ignore(1);
-            iss >> temp;
-            blueGainedScore.push_back(temp - previous_blueGainedScore);
-            previous_blueGainedScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            blueLostScore.push_back(temp - previous_blueLostScore);
-            previous_blueLostScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            blueNumberOfStarts.push_back(temp - previous_blueNumberOfStarts);
-            previous_blueNumberOfStarts = temp;
-            iss.ignore(1);
-            iss >> temp;
-            blueCoveredDistance.push_back(temp - previous_blueCoveredDistance);
-            previous_blueCoveredDistance = temp;
-
-            iss.ignore(1);
-            iss >> temp;
-            greenWaitDuration.push_back(temp - previous_greenWaitDuration);
-            previous_greenWaitDuration = temp;
-            iss.ignore(1);
-            iss >> temp;
-            greenGainedScore.push_back(temp - previous_greenGainedScore);
-            previous_greenGainedScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            greenLostScore.push_back(temp - previous_greenLostScore);
-            previous_greenLostScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            greenNumberOfStarts.push_back(temp - previous_greenNumberOfStarts);
-            previous_greenNumberOfStarts = temp;
-            iss.ignore(1);
-            iss >> temp;
-            greenCoveredDistance.push_back(temp - previous_greenCoveredDistance);
-            previous_greenCoveredDistance = temp;
-
-            iss.ignore(1);
-            iss >> temp;
-            yellowWaitDuration.push_back(temp - previous_yellowWaitDuration);
-            previous_yellowWaitDuration = temp;
-            iss.ignore(1);
-            iss >> temp;
-            yellowGainedScore.push_back(temp - previous_yellowGainedScore);
-            previous_yellowGainedScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            yellowLostScore.push_back(temp - previous_yellowLostScore);
-            previous_yellowLostScore = temp;
-            iss.ignore(1);
-            iss >> temp;
-            yellowNumberOfStarts.push_back(temp - previous_yellowNumberOfStarts);
-            previous_yellowNumberOfStarts = temp;
-            iss.ignore(1);
-            iss >> temp;
-            yellowCoveredDistance.push_back(temp - previous_yellowCoveredDistance);
-            previous_yellowCoveredDistance = temp;
-        }
-    }
-
-    f.close();
-
-    matplotlibcpp::title("Wait Durations Windowed");
-
-    matplotlibcpp::named_plot("Player Red", time_axis, redWaitDuration, "r");
-    matplotlibcpp::named_plot("Player Blue", time_axis, blueWaitDuration, "b");
-    matplotlibcpp::named_plot("Player Green", time_axis, greenWaitDuration, "g");
-    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowWaitDuration, "y");
-
-    matplotlibcpp::legend();
-
-    matplotlibcpp::save("wait_dur_windowed_chart.png");
-    matplotlibcpp::clf();
-
-    matplotlibcpp::title("Gained Scores Windowed");
-
-    matplotlibcpp::named_plot("Player Red", time_axis, redGainedScore, "r");
-    matplotlibcpp::named_plot("Player Blue", time_axis, blueGainedScore, "b");
-    matplotlibcpp::named_plot("Player Green", time_axis, greenGainedScore, "g");
-    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowGainedScore, "y");
-
-    matplotlibcpp::legend();
-
-    matplotlibcpp::save("gained_scores_windowed_chart.png");
-    matplotlibcpp::clf();
-
-    matplotlibcpp::title("Lost Scores Windowed");
-
-    matplotlibcpp::named_plot("Player Red", time_axis, redLostScore, "r");
-    matplotlibcpp::named_plot("Player Blue", time_axis, blueLostScore, "b");
-    matplotlibcpp::named_plot("Player Green", time_axis, greenLostScore, "g");
-    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowLostScore, "y");
-
-    matplotlibcpp::legend();
-
-    matplotlibcpp::save("lost_scores_windowed_chart.png");
-    matplotlibcpp::clf();
-
-    matplotlibcpp::title("Number of Starts Windowed");
-
-    matplotlibcpp::named_plot("Player Red", time_axis, redNumberOfStarts, "r");
-    matplotlibcpp::named_plot("Player Blue", time_axis, blueNumberOfStarts, "b");
-    matplotlibcpp::named_plot("Player Green", time_axis, greenNumberOfStarts, "g");
-    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowNumberOfStarts, "y");
-
-    matplotlibcpp::legend();
-
-    matplotlibcpp::save("number_of_starts_windowed_chart.png");
-
-    matplotlibcpp::clf();
-
-    matplotlibcpp::title("Covered Distance Windowed");
-
-    matplotlibcpp::named_plot("Player Red", time_axis, redCoveredDistance, "r");
-    matplotlibcpp::named_plot("Player Blue", time_axis, blueCoveredDistance, "b");
-    matplotlibcpp::named_plot("Player Green", time_axis, greenCoveredDistance, "g");
-    matplotlibcpp::named_plot("Player Yellow", time_axis, yellowCoveredDistance, "y");
-
-    matplotlibcpp::legend();
-
-    matplotlibcpp::save("covered_distances_windowed_chart.png");
-}
-
-void AccountingEngine::plotOut()
-{
-    plotOutCumulative();
-    matplotlibcpp::clf();
-    plotOutWindowed(30.0);
 }
 
 void AccountingEngine::onNotify(Event &event)
@@ -473,7 +245,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             redGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
         {
             redNumberOfStarts += 1;
         }
@@ -481,7 +253,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             redLostScore += 1;
         }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
             redCoveredDistance += event.getDiceNum();
         }
@@ -495,7 +267,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             blueGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
         {
             blueNumberOfStarts += 1;
         }
@@ -503,7 +275,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             blueLostScore += 1;
         }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
             blueCoveredDistance += event.getDiceNum();
         }
@@ -517,7 +289,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             greenGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
         {
             greenNumberOfStarts += 1;
         }
@@ -525,7 +297,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             greenLostScore += 1;
         }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
             greenCoveredDistance += event.getDiceNum();
         }
@@ -539,7 +311,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             yellowGainedScore += 1;
         }
-        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE || eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        else if (eventType == EVENT_PIECE_MOVED_TO_HOME_SQUARE)
         {
             yellowNumberOfStarts += 1;
         }
@@ -547,7 +319,7 @@ void AccountingEngine::onNotify(Event &event)
         {
             yellowLostScore += 1;
         }
-        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT && eventType != EVENT_PIECE_MOVED_TO_HOME_SQUARE_FROM_HOME)
+        if (eventType != EVENT_NO_MOVE && eventType != EVENT_PIECE_HIT)
         {
             yellowCoveredDistance += event.getDiceNum();
         }

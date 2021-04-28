@@ -1,0 +1,14 @@
+#ifndef EVENTTYPE_H
+#define EVENTTYPE_H
+
+// Event Types
+enum EventType
+{
+    EVENT_PIECE_MOVED,
+    EVENT_PIECE_MOVED_TO_HOME_ROW,
+    EVENT_PIECE_MOVED_TO_HOME_SQUARE,
+    EVENT_NO_MOVE,
+    EVENT_PIECE_HIT
+};
+
+#endif
